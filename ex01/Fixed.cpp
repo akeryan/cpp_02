@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 14:46:45 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/03 20:37:28 by akeryan          ###   ########.fr       */
+/*   Created: 2024/05/04 14:38:17 by akeryan           #+#    #+#             */
+/*   Updated: 2024/05/04 14:38:22 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ Fixed::~Fixed() {
 }
 
 int Fixed::getRawBits(void) const {
-	std::cout << "getRawBits member function called" << std::endl;
 	return fixedPointValue;
 }
 
@@ -61,5 +60,10 @@ const Fixed &Fixed::operator=(const Fixed &obj) {
 		fixedPointValue = obj.getRawBits(); 
 	}
 	return *this;
+}
+
+std::ostream &operator<<(std::ostream &osObj, const Fixed &obj) {
+	osObj << obj.toFloat();
+	return osObj;
 }
 

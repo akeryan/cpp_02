@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/04 14:38:42 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/04 14:38:47 by akeryan          ###   ########.fr       */
+/*   Created: 2024/05/04 14:39:41 by akeryan           #+#    #+#             */
+/*   Updated: 2024/05/04 20:09:37 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,26 @@
 int main(void)
 {
 	Fixed a;
-	Fixed const b(10);
-	Fixed const c(42.42f);
-	Fixed const d(b);
+	Fixed const b(Fixed(5.05f) * Fixed (2));
+	Fixed c;
 
-	a = Fixed(1234.4321f);
+	c = Fixed(3.2f);
 
-	std::cout << "a is " << a << std::endl;
-	std::cout << "b is " << b << std::endl;
-	std::cout << "c is " << c << std::endl;
-	std::cout << "d is " << d << std::endl;
+	std::cout << a << std::endl;
+	std::cout << ++a << std::endl;
+	std::cout << a << std::endl;
+	std::cout << a++ << std::endl;
+	std::cout << a << std::endl;
+	std::cout << b << std::endl;
+	std::cout << Fixed::max(a,b) << std::endl;
 
-	std::cout << "a is " << a.toInt() << " as integer" << std::endl;
-	std::cout << "b is " << b.toInt() << " as integer" << std::endl;
-	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
-	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+	std::cout << "div: " << b / Fixed(2) << std::endl;
+	std::cout << "div: " << b * Fixed(2) << std::endl;
+	std::cout << "add: " << b + b << std::endl;
+	std::cout << "subtr: " << b - c << std::endl;
+	std::cout << "greater: " << (a < b) << std::endl;
+	Fixed f = b + c;
+	std::cout << "assign: " << f << std::endl;
 
 	return 0;
 }
