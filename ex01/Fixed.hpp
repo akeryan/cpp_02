@@ -6,7 +6,7 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:38:30 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/04 14:38:33 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/05 10:12:25 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <sstream>
 
 class Fixed {
-		friend std::ostream &operator<<(std::ostream &osObj, const Fixed &obj);
 	public:
 		Fixed();
 		Fixed(const int value);
@@ -26,11 +25,13 @@ class Fixed {
 		int getRawBits(void) const;
 		void setRawBits(int const raw);
 		float toFloat(void) const;
-		float toInt(void) const;
+		int toInt(void) const;
 		const Fixed &operator=(const Fixed &obj);
 	private:
 		int					fixedPointValue;
 		static const int	fractionalBits = 8;
 };
+
+std::ostream &operator<<(std::ostream &osObj, const Fixed &obj);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:38:17 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/04 14:38:22 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/05 10:53:03 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ float Fixed::toFloat(void) const {
 	return fixedPointValue / (static_cast<float>(1 << fractionalBits));
 }
 
-float Fixed::toInt(void) const {
+int Fixed::toInt(void) const {
 	return fixedPointValue / (1 << fractionalBits);
 }
 

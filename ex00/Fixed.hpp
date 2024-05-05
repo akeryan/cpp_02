@@ -6,7 +6,7 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:29:26 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/03 17:14:23 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/05 13:53:43 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FIXED_HPP
 
 class Fixed {
-	private:
 		int					fixedPointValue;
 		static const int	fractionalBits = 8;
 	public:

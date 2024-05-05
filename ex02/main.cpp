@@ -6,7 +6,7 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:39:41 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/04 20:09:37 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/05 16:36:47 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int main(void)
 	std::cout << b << std::endl;
 	std::cout << Fixed::max(a,b) << std::endl;
 
-	std::cout << "div: " << b / Fixed(2) << std::endl;
+	std::cout << "div: " << b / Fixed(2.1f) << std::endl;
 	std::cout << "div: " << b * Fixed(2) << std::endl;
 	std::cout << "add: " << b + b << std::endl;
 	std::cout << "subtr: " << b - c << std::endl;

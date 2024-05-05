@@ -6,7 +6,7 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:39:20 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/04 20:14:45 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/05 16:37:29 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ float Fixed::toFloat(void) const {
 	return fixedPointValue / (static_cast<float>(1 << fractionalBits));
 }
 
-float Fixed::toInt(void) const {
+int Fixed::toInt(void) const {
 	return fixedPointValue / (1 << fractionalBits);
 }
 
@@ -60,87 +60,87 @@ std::ostream &operator<<(std::ostream &osObj, const Fixed &obj) {
 	return osObj;
 }
 
-bool operator>(const Fixed &obj1, const Fixed &obj2) {
-	if (obj1.fixedPointValue > obj2.fixedPointValue)
+bool Fixed::operator>(const Fixed &obj2) const {
+	if (this->getRawBits() > obj2.getRawBits())
 		return true;
 	else	
 		return false;
 }
 
-bool operator<(const Fixed &obj1, const Fixed &obj2) {
-	if (obj1.fixedPointValue < obj2.fixedPointValue)
+bool Fixed::operator<(const Fixed &obj2) const {
+	if (this->getRawBits() < obj2.getRawBits())
 		return true;
 	else	
 		return false;
 }
 
-bool operator<=(const Fixed &obj1, const Fixed &obj2) {
-	if (obj1.fixedPointValue <= obj2.fixedPointValue)
+bool Fixed::operator<=(const Fixed &obj2) const {
+	if (this->getRawBits() <= obj2.getRawBits())
 		return true;
 	else	
 		return false;
 }
 
-bool operator>=(const Fixed &obj1, const Fixed &obj2) {
-	if (obj1.fixedPointValue >= obj2.fixedPointValue)
+bool Fixed::operator>=(const Fixed &obj2) const {
+	if (this->getRawBits() >= obj2.getRawBits())
 		return true;
 	else	
 		return false;
 }
 
-bool operator!=(const Fixed &obj1, const Fixed &obj2) {
-	if (obj1.fixedPointValue != obj2.fixedPointValue)
+bool Fixed::operator!=(const Fixed &obj2) const {
+	if (this->getRawBits() != obj2.getRawBits())
 		return true;
 	else	
 		return false;
 }
 
-bool operator==(const Fixed &obj1, const Fixed &obj2) {
-	if (obj1.fixedPointValue == obj2.fixedPointValue)
+bool Fixed::operator==(const Fixed &obj2) const {
+	if (this->getRawBits() == obj2.getRawBits())
 		return true;
 	else	
 		return false;
 }
 
-Fixed operator+(const Fixed &obj1, const Fixed &obj2) {
-	return Fixed(obj1.toFloat() + obj2.toFloat());
+Fixed Fixed::operator+(const Fixed &obj2) const {
+	return Fixed(this->toFloat() + obj2.toFloat());
 }
 
-Fixed operator-(const Fixed &obj1, const Fixed &obj2) {
-	return Fixed(obj1.toFloat() - obj2.toFloat());
+Fixed Fixed::operator-(const Fixed &obj2) const {
+	return Fixed(this->toFloat() - obj2.toFloat());
 }
 
-Fixed operator*(const Fixed &obj1, const Fixed &obj2) {
-	return Fixed(obj1.toFloat() * obj2.toFloat());
+Fixed Fixed::operator*(const Fixed &obj2) const {
+	return Fixed(this->toFloat() * obj2.toFloat());
 }
 
-Fixed operator/(const Fixed &obj1, const Fixed &obj2) {
-	return Fixed( obj1.toFloat() / obj2.toFloat());
+Fixed Fixed::operator/(const Fixed &obj2) const {
+	return Fixed(this->toFloat() / obj2.toFloat());
 }
 
-Fixed operator++(Fixed &obj) {
-	obj.fixedPointValue++;
-	return obj;
+Fixed Fixed::operator++() {
+	this->fixedPointValue++;
+	return *this;
 }
 
-Fixed operator++(Fixed &obj, int) {
+Fixed Fixed::operator++(int) {
 	Fixed temp;
 
-	temp = obj;
-	obj.fixedPointValue++;
+	temp = *this;
+	this->fixedPointValue++;
 	return temp;
 }
 
-Fixed operator--(Fixed &obj) {
-	obj.fixedPointValue--;
-	return obj;
+Fixed Fixed::operator--() {
+	this->fixedPointValue--;
+	return *this;
 }
 
-Fixed operator--(Fixed &obj, int) {
+Fixed Fixed::operator--(int) {
 	Fixed temp;
 
-	temp = obj;
-	obj.fixedPointValue--;
+	temp = *this;
+	this->fixedPointValue--;
 	return temp;
 }
 
