@@ -6,13 +6,15 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:38:17 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/05 10:53:03 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/06 10:13:20 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <cmath>
 #include "Fixed.hpp"
+
+// --------------------- CONSTRUCORS -------------------------------------------
 
 Fixed::Fixed() : fixedPointValue(0) {
 	std::cout << "Default contructor called" << std::endl;
@@ -33,26 +35,25 @@ Fixed::Fixed(const Fixed &obj) {
 	*this = obj;
 }
 
+// -------------------- DESTRUCTORS ------------------------------------------
+
 Fixed::~Fixed() {
 	std::cout << "Destructor called" << std::endl;
 }
 
+// ---------------------  GETTERS --------------------------------------------
 int Fixed::getRawBits(void) const {
 	return fixedPointValue;
 }
+
+// ---------------------- SETTERS --------------------------------------------
 
 void Fixed::setRawBits(const int raw) {
 	std::cout << "setRawBits member function called" << std::endl;
 	fixedPointValue = raw;
 }
 
-float Fixed::toFloat(void) const {
-	return fixedPointValue / (static_cast<float>(1 << fractionalBits));
-}
-
-int Fixed::toInt(void) const {
-	return fixedPointValue / (1 << fractionalBits);
-}
+// ----------------- OVERLOADED OPERATORS -----------------------------------
 
 const Fixed &Fixed::operator=(const Fixed &obj) {
 	std::cout << "Copy assignment operator called" << std::endl;
@@ -66,4 +67,15 @@ std::ostream &operator<<(std::ostream &osObj, const Fixed &obj) {
 	osObj << obj.toFloat();
 	return osObj;
 }
+
+// ----------------- OTHER PUBLIC METHODS -----------------------------------
+
+float Fixed::toFloat(void) const {
+	return fixedPointValue / (static_cast<float>(1 << fractionalBits));
+}
+
+int Fixed::toInt(void) const {
+	return fixedPointValue / (1 << fractionalBits);
+}
+
 

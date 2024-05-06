@@ -6,7 +6,7 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:39:31 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/05 16:34:06 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/06 09:39:56 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,58 @@
 
 class Fixed {
 	public:
+	// Constructors
 		Fixed();
+		Fixed(const Fixed &obj);
 		Fixed(const int value);
 		Fixed(const float value);
-		Fixed(const Fixed &obj);
+
+	// Destructors
 		~Fixed();
-		int getRawBits(void) const;
+
+	// Setters
 		void setRawBits(int const raw);
-		float toFloat(void) const;
-		int toInt(void) const;
-		static const Fixed &max(const Fixed &obj1, const Fixed &obj2);
-		static const Fixed &min(const Fixed &obj1, const Fixed &obj2);
+
+	// Getters
+		int getRawBits(void) const;
+
+	// Overloaded operators
 		const Fixed &operator=(const Fixed &obj);
+
+		// comparison operators
 		bool operator>(const Fixed &obj2) const;
 		bool operator<(const Fixed &obj2) const;
 		bool operator>=(const Fixed &obj2) const;
 		bool operator<=(const Fixed &obj2) const;
 		bool operator==(const Fixed &obj2) const;
 		bool operator!=(const Fixed &obj2) const;
+
+		// arithmetic operators
 		Fixed operator+(const Fixed &obj2) const;
 		Fixed operator-(const Fixed &obj2) const;
 		Fixed operator*(const Fixed &obj2) const;
 		Fixed operator/(const Fixed &obj2) const;
+
+		// pre-increment operators
 		Fixed operator++();
-		Fixed operator++(int);
 		Fixed operator--();
+
+		// post-increment operators
+		Fixed operator++(int);
 		Fixed operator--(int);
+
+	// Other public methods
+		float toFloat(void) const;
+		int toInt(void) const;
+		static const Fixed &max(const Fixed &obj1, const Fixed &obj2);
+		static const Fixed &min(const Fixed &obj1, const Fixed &obj2);
+
 	private:
 		int					fixedPointValue;
 		static const int	fractionalBits = 8;
 };
 
+// Overloaded non-member operators
 std::ostream &operator<<(std::ostream &osObj, const Fixed &obj);
 
 #endif
