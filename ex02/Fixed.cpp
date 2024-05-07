@@ -6,12 +6,13 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:39:20 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/06 09:51:36 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/07 14:40:38 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <cmath>
+#include <limits.h>
 #include "Fixed.hpp"
 
 // ---------------------------- CONSTRUCTORS -----------------------------------
@@ -20,10 +21,26 @@ Fixed::Fixed() : fixedPointValue(0) {
 }
 
 Fixed::Fixed(const int value) {
+	if (value > (INT_MAX / (1 << fractionalBits))) {
+		std::cerr << "Error: overflow in the IntConstructor" << std::endl;
+		exit(1);	
+	}
+	if (value < (INT_MIN / (1 << fractionalBits))) {
+		std::cerr << "Error: underflow in the IntConstructor" << std::endl;
+		exit(1);	
+	}
 	fixedPointValue = (value * (1 << fractionalBits));
 }
 
 Fixed::Fixed(const float value) {
+	if (value > (INT_MAX / static_cast<float>(1 << fractionalBits) - 0.01)) {
+		std::cerr << "Error: overflow in the Float Constructor" << std::endl;
+		exit(1);	
+	}
+	if (value < (INT_MIN / static_cast<float>(1 << fractionalBits) - 0.01)) {
+		std::cerr << "Error: underflow in the Float Constructor" << std::endl;
+		exit(1);	
+	}
 	fixedPointValue = roundf(value * (1 << fractionalBits));
 }
 
@@ -33,8 +50,8 @@ Fixed::Fixed(const Fixed &obj) {
 
 // --------------------------- DESTRUCTORS -------------------------------------
 
-Fixed::~Fixed() {
-}
+Fixed::~Fixed() 
+{ }
 
 // ----------------------------- GETTERS ---------------------------------------
 
@@ -48,7 +65,7 @@ void Fixed::setRawBits(const int raw) {
 	fixedPointValue = raw;
 }
 
-// ------------------------ OVERLOADED OPERATORS -------------------------------
+// ----------------------- OVERLOADED OPERATORS --------------------------------
 
 const Fixed &Fixed::operator=(const Fixed &obj) {
 	if (this != &obj) {
@@ -108,8 +125,8 @@ bool Fixed::operator==(const Fixed &obj2) const {
 
 // Arithmetic operators --------------------------
 
-Fixed Fixed::operator+(const Fixed &obj2) const {
-	return Fixed(this->toFloat() + obj2.toFloat());
+Fixed Fixed::operator+(const Fixed &obj) const {
+	return Fixed(this->toFloat() + obj.toFloat());
 }
 
 Fixed Fixed::operator-(const Fixed &obj2) const {
@@ -127,13 +144,19 @@ Fixed Fixed::operator/(const Fixed &obj2) const {
 // Pre-increment operators -----------------------
 
 Fixed Fixed::operator++() {
-	this->fixedPointValue++;
+	if (this->fixedPointValue < INT_MAX)
+		this->fixedPointValue++;
+	else 
+		std::cout << "WARNING: pre-increment operator (++) wan't applied, otherwise OVERFLOW would occur" << std::endl;
 	return *this;
 }
 
 
 Fixed Fixed::operator--() {
-	this->fixedPointValue--;
+	if (this->fixedPointValue > INT_MIN)
+		this->fixedPointValue--;
+	else 
+		std::cout << "WARNING: pre-decrement operator (--) wan't applied, otherwise UNDERFLOW would occur" << std::endl;
 	return *this;
 }
 
@@ -143,14 +166,20 @@ Fixed Fixed::operator++(int) {
 	Fixed temp;
 
 	temp = *this;
-	this->fixedPointValue++;
+	if (this->fixedPointValue < INT_MAX)
+		this->fixedPointValue++;
+	else 
+		std::cout << "WARNING: post-increment operator (++) wan't applied, otherwise OVERFLOW would occur" << std::endl;
 	return temp;
 }
 Fixed Fixed::operator--(int) {
 	Fixed temp;
 
 	temp = *this;
-	this->fixedPointValue--;
+	if (this->fixedPointValue > INT_MIN)
+		this->fixedPointValue--;
+	else 
+		std::cout << "WARNING: post-decrement operator (--) wan't applied, otherwise UNDERFLOW would occur" << std::endl;
 	return temp;
 }
 

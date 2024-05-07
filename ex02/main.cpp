@@ -6,7 +6,7 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:39:41 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/05 16:36:47 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/07 15:29:29 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@ int main(void)
 	std::cout << "greater: " << (a < b) << std::endl;
 	Fixed f = b + c;
 	std::cout << "assign: " << f << std::endl;
+
+	Fixed e1, e2;
+	e1 = Fixed (8388607);
+	e2 = Fixed (0.74f);
+
+	// post-increment test
+	int i = 260;
+	while (i) {
+		e1++;
+		i--;
+	}
+	std::cout << "result3: " << e1.getRawBits() << std::endl;
 
 	return 0;
 }
