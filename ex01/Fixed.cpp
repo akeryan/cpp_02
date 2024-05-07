@@ -6,7 +6,7 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:38:17 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/06 10:13:20 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/07 17:13:31 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <cmath>
 #include "Fixed.hpp"
 
-// --------------------- CONSTRUCORS -------------------------------------------
+// --------------------- CONSTRUCORS (W/O PROTECTION) -------------------------
 
 Fixed::Fixed() : fixedPointValue(0) {
 	std::cout << "Default contructor called" << std::endl;
@@ -46,10 +46,9 @@ int Fixed::getRawBits(void) const {
 	return fixedPointValue;
 }
 
-// ---------------------- SETTERS --------------------------------------------
+// ---------------------- SETTERS (W/O PROTECTION) ---------------------------
 
 void Fixed::setRawBits(const int raw) {
-	std::cout << "setRawBits member function called" << std::endl;
 	fixedPointValue = raw;
 }
 

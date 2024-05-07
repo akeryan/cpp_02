@@ -6,7 +6,7 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:39:31 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/06 09:39:56 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/07 17:02:42 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ class Fixed {
 	// Other public methods
 		float toFloat(void) const;
 		int toInt(void) const;
+		static Fixed &max(Fixed &obj1, Fixed &obj2);
 		static const Fixed &max(const Fixed &obj1, const Fixed &obj2);
+		static Fixed &min(Fixed &obj1, Fixed &obj2);
 		static const Fixed &min(const Fixed &obj1, const Fixed &obj2);
 
 	private:

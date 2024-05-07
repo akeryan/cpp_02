@@ -6,7 +6,7 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:46:45 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/05 13:47:15 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/07 16:36:03 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ int Fixed::getRawBits(void) const {
 
 void Fixed::setRawBits(const int raw) {
 	std::cout << "setRawBits member function called" << std::endl;
+	if (raw > INT_MAX || raw < INT_MIN) {
+		std::cout << "WARNING: setRawBits(): entered value is beyond 'int' capacity" << std::endl;
+		return ;
+	}
 	fixedPointValue = raw;
 }
 

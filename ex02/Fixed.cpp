@@ -6,7 +6,7 @@
 /*   By: akeryan <akeryan@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:39:20 by akeryan           #+#    #+#             */
-/*   Updated: 2024/05/07 14:40:38 by akeryan          ###   ########.fr       */
+/*   Updated: 2024/05/07 17:15:39 by akeryan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <limits.h>
 #include "Fixed.hpp"
 
-// ---------------------------- CONSTRUCTORS -----------------------------------
+// ---------------------- CONSTRUCTORS (WITH PROTECTIONS) ---------------------
 
 Fixed::Fixed() : fixedPointValue(0) {
 }
@@ -50,8 +50,9 @@ Fixed::Fixed(const Fixed &obj) {
 
 // --------------------------- DESTRUCTORS -------------------------------------
 
-Fixed::~Fixed() 
-{ }
+Fixed::~Fixed() {
+	return ;
+}
 
 // ----------------------------- GETTERS ---------------------------------------
 
@@ -59,9 +60,13 @@ int Fixed::getRawBits(void) const {
 	return fixedPointValue;
 }
 
-// ----------------------------- SETTERS ---------------------------------------
+// ------------------------- SETTERS (WITH PROTECTIONS) ------------------------
 
 void Fixed::setRawBits(const int raw) {
+	if (raw > INT_MAX || raw < INT_MIN) {
+		std::cout << "WARNING: setRawBits(): entered value is beyond 'int' capacity" << std::endl;
+		return ;
+	}
 	fixedPointValue = raw;
 }
 
@@ -81,43 +86,43 @@ std::ostream &operator<<(std::ostream &osObj, const Fixed &obj) {
 
 // Comparison operators -------------------------
 
-bool Fixed::operator>(const Fixed &obj2) const {
-	if (this->getRawBits() > obj2.getRawBits())
+bool Fixed::operator>(const Fixed &obj) const {
+	if (this->getRawBits() > obj.getRawBits())
 		return true;
 	else	
 		return false;
 }
 
-bool Fixed::operator<(const Fixed &obj2) const {
-	if (this->getRawBits() < obj2.getRawBits())
+bool Fixed::operator<(const Fixed &obj) const {
+	if (this->getRawBits() < obj.getRawBits())
 		return true;
 	else	
 		return false;
 }
 
-bool Fixed::operator<=(const Fixed &obj2) const {
-	if (this->getRawBits() <= obj2.getRawBits())
+bool Fixed::operator<=(const Fixed &obj) const {
+	if (this->getRawBits() <= obj.getRawBits())
 		return true;
 	else	
 		return false;
 }
 
-bool Fixed::operator>=(const Fixed &obj2) const {
-	if (this->getRawBits() >= obj2.getRawBits())
+bool Fixed::operator>=(const Fixed &obj) const {
+	if (this->getRawBits() >= obj.getRawBits())
 		return true;
 	else	
 		return false;
 }
 
-bool Fixed::operator!=(const Fixed &obj2) const {
-	if (this->getRawBits() != obj2.getRawBits())
+bool Fixed::operator!=(const Fixed &obj) const {
+	if (this->getRawBits() != obj.getRawBits())
 		return true;
 	else	
 		return false;
 }
 
-bool Fixed::operator==(const Fixed &obj2) const {
-	if (this->getRawBits() == obj2.getRawBits())
+bool Fixed::operator==(const Fixed &obj) const {
+	if (this->getRawBits() == obj.getRawBits())
 		return true;
 	else	
 		return false;
@@ -129,16 +134,16 @@ Fixed Fixed::operator+(const Fixed &obj) const {
 	return Fixed(this->toFloat() + obj.toFloat());
 }
 
-Fixed Fixed::operator-(const Fixed &obj2) const {
-	return Fixed(this->toFloat() - obj2.toFloat());
+Fixed Fixed::operator-(const Fixed &obj) const {
+	return Fixed(this->toFloat() - obj.toFloat());
 }
 
-Fixed Fixed::operator*(const Fixed &obj2) const {
-	return Fixed(this->toFloat() * obj2.toFloat());
+Fixed Fixed::operator*(const Fixed &obj) const {
+	return Fixed(this->toFloat() * obj.toFloat());
 }
 
-Fixed Fixed::operator/(const Fixed &obj2) const {
-	return Fixed(this->toFloat() / obj2.toFloat());
+Fixed Fixed::operator/(const Fixed &obj) const {
+	return Fixed(this->toFloat() / obj.toFloat());
 }
 
 // Pre-increment operators -----------------------
@@ -183,15 +188,25 @@ Fixed Fixed::operator--(int) {
 	return temp;
 }
 
-// --------------------- OTHER PUBLIC METHODS -------------------------------------
+// ------------------------- MIN-MAX ---------------------------------------------
+
+Fixed &Fixed::max(Fixed &obj1, Fixed &obj2) {
+	return obj1 > obj2 ? obj1 : obj2;
+}
 
 const Fixed &Fixed::max(const Fixed &obj1, const Fixed &obj2) {
 	return obj1 > obj2 ? obj1 : obj2;
 }
 
+Fixed &Fixed::min(Fixed &obj1, Fixed &obj2) {
+	return obj1 < obj2 ? obj1 : obj2;
+}
+
 const Fixed &Fixed::min(const Fixed &obj1, const Fixed &obj2) {
 	return obj1 < obj2 ? obj1 : obj2;
 }
+
+// --------------------- OTHER PUBLIC METHODS -------------------------------------
 
 float Fixed::toFloat(void) const {
 	return fixedPointValue / (static_cast<float>(1 << fractionalBits));
